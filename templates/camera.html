@@ -2,12 +2,102 @@
   <head>
       <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <title>REALTIME INTELLIGENT SURVEILLANCE FOR CCTV CAMERAS</title>
-         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles.css') }}" />
+       <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='home.css') }}" />
 
+       <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='notify.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='prettify.css') }}" />
+      <script src="{{ url_for('static',filename='jq.js') }}"></script>
+      <script src="{{ url_for('static',filename='notify.js') }}"></script>
   </head>
   <body>
+  <div class="headbar" style="border: 1px solid black;height:50px;width:1500px;margin-top: 0px;margin-left: -70px;">
+      <h2 style="color: white;margin-left: 71%;margin-top: 7px;font-weight: bold">Video Control Panel</h2>
+     <a href={{  url_for('index')}}  style="margin-left:80%;margin-top:0px;">
 
-    <h1>REALTIME INTELLIGENT SURVEILLANCE FOR CCTV CAMERAS</h1>
-    <img id="video" src="{{ url_for('cam_feed') }}">
+          <img width="70px" height="70px" src="{{url_for('static', filename='home_button.gif')}}" />
+
+
+     </a>
+
+  </div>
+  <div style="width: 250px;height:60px;margin-left: 50px;display:inline-block">
+
+    <a id="play" href={{  url_for('play')}} style="margin-top:auto;float:left">
+        <img style="width:30px;height:30px;" src="{{url_for('static', filename='play(1).png')}}" /></a>
+ <a id="pause" href={{  url_for('pause')}} style="margin-top:auto;margin-left:-30px;float:left">
+ <img width="30px" height="30px" src="{{url_for('static', filename='pause(1).png')}}" /></a>
+
+ <a id="snap" href={{  url_for('snap')}} style="margin-top:auto;margin-left:-30px;float:left">
+<img width="30px" height="30px" src="{{url_for('static', filename='rec.png')}}" /></a>
+</div>
+
+
+
+    <img id="video" height="400" src="{{ url_for('cam_feed') }}">
+   <div >
+     <div class="wrap" style="margin-left:70px;margin-top: 140px;float: left;">
+       <a  class="button" target="_blank" style="border-radius: 20px;height: 20px;width: 200px" href={{  url_for('analytics')}}>Analytics Dashboard</a>
+     </div>
+
+     <div class="wrap" style="margin-left: 330px;margin-top: 140px;float: left">
+       <form>
+           <a class="button"  style="border-radius: 20px;height: 20px;width: 200px"  href=# id=test>Select Regions</a>
+       </form>
+     </div>
+ </div>
+
+
+
+
+  <script type=text/javascript>
+			$(function() {
+			  $('a#test').bind('click', function() {
+
+				$.getJSON('/background_process_test',
+                    function(data) {
+				  //do nothing
+				});
+				return false;
+			  });
+			});
+		</script>
+
+   <script type=text/javascript>
+			$(function() {
+			  $('a#play').bind('click', function() {
+				$.getJSON('/play',
+                    function(data) {
+				  //do nothing
+				});
+				return false;
+			  });
+			});
+		</script>
+   <script type=text/javascript>
+			$(function() {
+			  $('a#pause').bind('click', function() {
+				$.getJSON('/pause',
+                    function(data) {
+				  //do nothing
+				});
+				return false;
+			  });
+			});
+		</script>
+   <script type=text/javascript>
+			$(function() {
+			  $('a#snap').bind('click', function() {
+			       $.notify("Snapshot Captured Successfully!", {blur: 0.2, delay: 0,type:"success",color: "#fff", background: "#4B7EE0",icon:"check"});
+				$.getJSON('/snap',
+                    function(data) {
+				  //do nothing
+				});
+				return false;
+			  });
+			});
+		</script>
+<div class="headbar" style="height:10px;width:100%;position: fixed;bottom: 10px;"></div>
+<div class="headbar" style="background-color:darkslateblue;height:10px;width:100%;position: fixed;bottom: 0;"></div>
+
   </body>
 </html>
